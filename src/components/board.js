@@ -10,7 +10,7 @@ export default class Board extends React.Component {
         var id = 0;
 
         return (
-            <table>
+            <table className="board">
                 <tbody>
                     <tr>
                         <td><Tile ownedBy={board[id++]} /></td>

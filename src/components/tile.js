@@ -1,14 +1,15 @@
 import React from 'react';
-import * as  players from 'globals';
+import players from 'globals';
 
 const symbols = {
   circle: 'O',
-  square: 'S'
+  square: 'S',
+  empty: ' '
 };
 
 export default class Tile extends React.Component {
   render() {
-    var symbol = '';
+    var symbol = symbols.empty;
     if (this.props.ownedBy === players.circle) {
       symbol = symbols.circle;
     } else if (this.props.ownedBy === players.square) {
