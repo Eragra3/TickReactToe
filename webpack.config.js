@@ -33,5 +33,6 @@ module.exports = {
             beautify: false,
             dead_code: true
         })
-    ]
+    ],
+    devtool: 'source-map'
 };

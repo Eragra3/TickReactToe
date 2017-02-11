@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Tile from './components/tile.js';
-import { players } from 'globals';
+import Game from './components/game.js';
+import * as players from 'globals';
 
 window.onload = () => {
+    var lel = "2";
     ReactDOM.render(
-        <Tile ownedBy={players.circle} />,
+        <Game />,
+        document.getElementById('root')
     );
 };

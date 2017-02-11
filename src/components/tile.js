@@ -1,5 +1,5 @@
 import React from 'react';
-import { players } from 'globals';
+import * as  players from 'globals';
 
 const symbols = {
   circle: 'O',
