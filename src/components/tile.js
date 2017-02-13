@@ -3,7 +3,7 @@ import PLAYERS from '../globals';
 
 const symbols = {
   circle: 'O',
-  square: 'S',
+  square: 'X',
   empty: ' '
 };
 
@@ -21,7 +21,6 @@ export default class Tile extends React.Component {
   }
 
   render() {
-    console.log('I render! ${this.props.id}');
 
     if (this.props.ownedBy === PLAYERS.circle) {
       this.state.symbol = symbols.circle;

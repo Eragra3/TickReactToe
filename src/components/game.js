@@ -14,8 +14,9 @@ export default class Game extends React.Component {
                 PLAYERS.circle, PLAYERS.square, null,
                 null, null, PLAYERS.circle],
             currentPlayer: PLAYERS.circle,
-            status: "X",
-            error: ''
+            status: "Circle",
+            error: '',
+            winner: null
         }
     }
 
@@ -24,12 +25,18 @@ export default class Game extends React.Component {
             <div>
                 <div className="game-status">Current player: {this.state.status}</div>
                 <div className="error-message">{this.state.error}</div>
-            </div> ,
-            <Board board={this.state.board} onClick={this.onClick.bind(this)} />
+                <Board board={this.state.board} onClick={this.onClick.bind(this)} />
+            </div>
         );
     }
 
     onClick(id) {
+
+        if (this.state.winner !== null) {
+            error = "Restart the game first";
+            this.setState({ error: error })
+            return;
+        }
 
         var error = '';
 
@@ -45,16 +52,16 @@ export default class Game extends React.Component {
         board[id] = this.state.currentPlayer
 
         var currentPlayer = this.switchTurns();
-        var status = this.generateStatus();
+        var winner = this.calculateWinner(board);
+        var status = this.generateStatus(currentPlayer, winner, board);
 
         this.setState({
             board: board,
             status: status,
             error: error,
-            currentPlayer: currentPlayer
+            currentPlayer: currentPlayer,
+            winner: winner
         });
-
-        console.log(this.state.board);
     }
 
     switchTurns() {
@@ -63,11 +70,39 @@ export default class Game extends React.Component {
             : PLAYERS.circle;
     }
 
-    generateStatus(currentPlayer) {
-        if (currentPlayer == PLAYERS.circle) {
-            return 'X';
-        } else {
-            return 'O';
+    generateStatus(currentPlayer, winner, board) {
+        if (!board.some((v) => v === null) && winner !== null) {
+            return 'Tie!';
         }
+
+        if (winner !== null) {
+            return `The winner is ${winner}!`;
+        }
+
+        if (currentPlayer == PLAYERS.square) {
+            return 'Square';
+        } else {
+            return 'Circle';
+        }
+    }
+
+    calculateWinner(squares) {
+        const lines = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+        for (let i = 0; i < lines.length; i++) {
+            const [a, b, c] = lines[i];
+            if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                return squares[a];
+            }
+        }
+        return null;
     }
 }
