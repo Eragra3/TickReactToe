@@ -9,21 +9,21 @@ export default class Game extends React.Component {
         super();
 
         this.state = {
-            board: [
-                null, null, null,
-                PLAYERS.circle, PLAYERS.square, null,
-                null, null, PLAYERS.circle],
+            board: Array(9).fill(null),
             currentPlayer: PLAYERS.circle,
             status: "Circle",
             error: '',
             winner: null
         }
+
+        this.initialStateJson = JSON.stringify(this.state);
     }
 
     render() {
         return (
             <div>
-                <div className="game-status">Current player: {this.state.status}</div>
+                <button onClick={this.reset.bind(this)}>Reset</button>
+                <div className="game-status">{this.state.status}</div>
                 <div className="error-message">{this.state.error}</div>
                 <Board board={this.state.board} onClick={this.onClick.bind(this)} />
             </div>
@@ -71,18 +71,18 @@ export default class Game extends React.Component {
     }
 
     generateStatus(currentPlayer, winner, board) {
-        if (!board.some((v) => v === null) && winner !== null) {
-            return 'Tie!';
-        }
-
         if (winner !== null) {
             return `The winner is ${winner}!`;
         }
 
+        if (!board.some((v) => v === null)) {
+            return 'Tie!';
+        }
+
         if (currentPlayer == PLAYERS.square) {
-            return 'Square';
+            return 'Current player: Square';
         } else {
-            return 'Circle';
+            return 'Current player: Circle';
         }
     }
 
@@ -104,5 +104,9 @@ export default class Game extends React.Component {
             }
         }
         return null;
+    }
+
+    reset() {
+        this.setState(JSON.parse(this.initialStateJson));
     }
 }

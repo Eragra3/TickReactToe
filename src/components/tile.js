@@ -22,6 +22,7 @@ export default class Tile extends React.Component {
 
   render() {
 
+    this.state.symbol = symbols.empty;
     if (this.props.ownedBy === PLAYERS.circle) {
       this.state.symbol = symbols.circle;
     } else if (this.props.ownedBy === PLAYERS.square) {
