@@ -1,5 +1,5 @@
 import React from 'react';
-import players from 'globals';
+import PLAYERS from '../globals';
 
 const symbols = {
   circle: 'O',
@@ -8,16 +8,23 @@ const symbols = {
 };
 
 export default class Tile extends React.Component {
+
+  onClick() {
+    this.props.onClick(this.props.id);
+  }
+
   render() {
+    console.log('I render! ${this.props.id}');
+
     var symbol = symbols.empty;
-    if (this.props.ownedBy === players.circle) {
+    if (this.props.ownedBy === PLAYERS.circle) {
       symbol = symbols.circle;
-    } else if (this.props.ownedBy === players.square) {
+    } else if (this.props.ownedBy === PLAYERS.square) {
       symbol = symbols.square;
     }
 
     return (
-      <div className="tile" onClick={() => this.props.onClick(this.props.id)}>
+      <div className="tile" onClick={this.onClick.bind(this)}>
         {symbol}
       </div>
     );

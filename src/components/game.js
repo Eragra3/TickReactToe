@@ -1,24 +1,28 @@
 import React from 'react';
 
 import Board from './board';
-import players from 'globals';
+import PLAYERS from '../globals';
 
 export default class Game extends React.Component {
-        
+
     onClick(id) {
         this.board[id] = this.currentPlayer;
-        changeTurn();
+
+        this.props.onClick(id);
     }
 
     render() {
 
-        let board = [
+        this.currentPlayer = PLAYERS.circle;
+
+        const board = [
             null, null, null,
-            players.circle, players.square, null,
-            null, null, players.circle];
+            PLAYERS.circle, PLAYERS.square, null,
+            null, null, PLAYERS.circle];
+        this.board = board;
 
         return (
-            <Board board={board} />
+            <Board board={board} onClick={this.onClick.bind(this)} />
         );
     }
 }

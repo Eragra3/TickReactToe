@@ -1,4 +1,4 @@
-export const players = {
+export default {
     circle: 'circle',
     square: 'square'
 };

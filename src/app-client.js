@@ -2,17 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Game from './components/game.js';
-import players from 'globals';
+import PLAYERS from './globals';
 
 window.onload = () => {
 
+    console.log(PLAYERS)
     let board = [
         null, null, null,
-        players.circle, players.square, null,
-        null, null, players.circle
+        PLAYERS.circle, PLAYERS.square, null,
+        null, null, PLAYERS.circle
     ];
 
-    let currentPlayer = players.circle;
+    let currentPlayer = PLAYERS.circle;
     let status = "X";
     let error = '';
 
@@ -26,26 +27,28 @@ window.onload = () => {
     );
 
     function changeTurn() {
-        if (currentPlayer === players.circle) {
-            currentPlayer = players.square;
+        if (currentPlayer === PLAYERS.circle) {
+            currentPlayer = PLAYERS.square;
         } else {
-            currentPlayer = players.circle;
+            currentPlayer = PLAYERS.circle;
         }
     }
 
     function onClick(id) {
-        if (board[i] !== null) {
+        if (board[id] !== null) {
             error = "This tile is already selected";
             return;
         }
         error = '';
-        if (board[i] === players.circle) {
-            currentPlayer = players.square;
+        board[id] = currentPlayer
+        if (board[id] === PLAYERS.circle) {
+            currentPlayer = PLAYERS.square;
             status = 'X';
         } else {
-            currentPlayer = players.circle;
+            currentPlayer = PLAYERS.circle;
             status = 'O';
         }
-        board[i] = currentPlayer
+
+        console.log(board);
     }
 };
