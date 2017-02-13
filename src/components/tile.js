@@ -17,7 +17,7 @@ export default class Tile extends React.Component {
     }
 
     return (
-      <div className="tile">
+      <div className="tile" onClick={() => this.props.onClick(this.props.id)}>
         {symbol}
       </div>
     );

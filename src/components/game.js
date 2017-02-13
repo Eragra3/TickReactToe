@@ -4,6 +4,12 @@ import Board from './board';
 import players from 'globals';
 
 export default class Game extends React.Component {
+        
+    onClick(id) {
+        this.board[id] = this.currentPlayer;
+        changeTurn();
+    }
+
     render() {
 
         let board = [
