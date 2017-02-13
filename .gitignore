@@ -61,4 +61,4 @@ typings/
 .env
 
 # js bundles
-src/bundle
+# src/bundle
