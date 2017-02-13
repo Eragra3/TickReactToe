@@ -9,6 +9,13 @@ const symbols = {
 
 export default class Tile extends React.Component {
 
+  constructor() {
+    super();
+    this.state = {
+      symbol: symbols.empty
+    }
+  }
+
   onClick() {
     this.props.onClick(this.props.id);
   }
@@ -16,16 +23,15 @@ export default class Tile extends React.Component {
   render() {
     console.log('I render! ${this.props.id}');
 
-    var symbol = symbols.empty;
     if (this.props.ownedBy === PLAYERS.circle) {
-      symbol = symbols.circle;
+      this.state.symbol = symbols.circle;
     } else if (this.props.ownedBy === PLAYERS.square) {
-      symbol = symbols.square;
+      this.state.symbol = symbols.square;
     }
 
     return (
       <div className="tile" onClick={this.onClick.bind(this)}>
-        {symbol}
+        {this.state.symbol}
       </div>
     );
   }
